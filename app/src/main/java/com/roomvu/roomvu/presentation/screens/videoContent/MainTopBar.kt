@@ -26,13 +26,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainTopBar() {
     var expanded by remember { mutableStateOf(false) }
     var openAlertDialog by remember { mutableStateOf(false) }
-    val mainViewModel = MainViewModel()
+    val mainViewModel: MainViewModel = hiltViewModel()
     val dialogState = mainViewModel.openDialog.value
 
     val onDeleteClicked: () -> Unit = {
@@ -82,7 +83,7 @@ fun MainTopBar() {
 @Composable
 fun DeleteConfirmAlert() {
     val openDialog = remember { mutableStateOf(false)  }
-    val mainViewModel = MainViewModel()
+    val mainViewModel: MainViewModel = hiltViewModel()
 //    val dialogState = mainViewModel.openDialog.value
     AlertDialog(
         containerColor = AlertDialogDefaults.containerColor,
