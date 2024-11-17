@@ -1,5 +1,6 @@
 package com.roomvu.roomvu.di
 
+import com.roomvu.roomvu.data.repository.UpdateVideoRepositoryImpl
 import com.roomvu.roomvu.data.repository.VideoRepositoryImpl
 import com.roomvu.roomvu.domain.repo.VideoRepository
 import dagger.Binds
@@ -16,7 +17,7 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun bindVideoRepository(videoRepositoryImpl: VideoRepositoryImpl): VideoRepository
 
-//    @Binds
-//    @Singleton
-//    abstract fun bindUpdateVideoRepository(updateVideoRepositoryImpl: UpdateVideoRepositoryImpl): UpdateVideoRepositoryImpl
+    @Binds
+    @Singleton
+    abstract fun bindUpdateVideoRepository(updateVideoRepositoryImpl: UpdateVideoRepositoryImpl): UpdateVideoRepositoryImpl
 }
