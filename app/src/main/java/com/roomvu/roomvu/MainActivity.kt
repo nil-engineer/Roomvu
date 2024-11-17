@@ -15,7 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.roomvu.roomvu.presentation.screens.videoContent.MainTopBar
 import com.roomvu.roomvu.presentation.screens.videoContent.VideoContent
 import com.roomvu.roomvu.ui.theme.RoomvuTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
