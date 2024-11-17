@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,16 +21,24 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.roomvu.roomvu.R
+import com.roomvu.roomvu.presentation.screens.components.VideoPlayer
 import com.roomvu.roomvu.ui.theme.BgGray
 import com.roomvu.roomvu.ui.theme.BodyTextColor
 import com.roomvu.roomvu.ui.theme.BorderGray
@@ -39,7 +48,31 @@ import com.roomvu.roomvu.ui.theme.secondaryTextColor
 @Composable
 fun VideoContent(paddingValues: PaddingValues) {
     val interactionSource = remember { MutableInteractionSource() }
+    val mainViewModel: MainViewModel = hiltViewModel()
+    mainViewModel.fetchVideo()
+    val video = mainViewModel.video.observeAsState().value
+    val playerViewModel = PlayerViewModel()
+    val player by playerViewModel.playerState.collectAsState()
+    val context = LocalContext.current
 
+    if (video != null) {
+        LaunchedEffect(video.data.video.videoUrl) {
+            playerViewModel.initializePlayer(context, video.data.video.videoUrl)
+        }
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            playerViewModel.savePlayerState()
+            playerViewModel.releasePlayer()
+        }
+    }
+//    var publishDate = ""
+//    if (video != null) {
+//        publishDate = video.data.video.publishAt
+//    }
+//    val time = publishDate.split(" ")
+//    Log.d("time", "VideoContent: time" + time.size)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,6 +87,23 @@ fun VideoContent(paddingValues: PaddingValues) {
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight(590)
         )
+        Box(contentAlignment = Alignment.Center) {
+//        if (video != null) {
+//            AsyncImage(
+//                modifier = Modifier.size(30.dp),
+//                model = video.data.video.thumbnail,
+//                contentDescription = "thumb",
+//                contentScale = ContentScale.FillWidth
+//            )
+//        }
+//        Button(onClick = {},
+//            shape = CircleShape,
+//            modifier = Modifier.size(70.dp)) {
+//            Image(painter = painterResource(R.drawable.ic_play),
+//                contentDescription = "play")
+//        }
+        VideoPlayer(player)
+    }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -63,14 +113,17 @@ fun VideoContent(paddingValues: PaddingValues) {
                 painter = painterResource(R.drawable.ic_video),
                 contentDescription = "video"
             )
-            Text(
-                "Tips for First-Time Homebuyers in Chicago",
-                color = BodyTextColor,
-                fontFamily = FontFamily.SansSerif,
-                fontWeight = FontWeight(590),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(start = 3.dp)
-            )
+            if (video != null) {
+                Text(
+                    text = video.data.video.title,
+                    color = BodyTextColor,
+                    fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight(590),
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.padding(start = 5.dp),
+                    maxLines = 3
+                )
+            }
         }
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -81,7 +134,7 @@ fun VideoContent(paddingValues: PaddingValues) {
                 contentDescription = "video"
             )
             Text(
-                text = "12:00 PM",
+                text = mainViewModel.getTimePart(),
                 color = BodyTextColor,
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight(590),
@@ -127,18 +180,26 @@ fun VideoContent(paddingValues: PaddingValues) {
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(end = 15.dp)
             )
-            Image(
-                painter = painterResource(R.drawable.ic_linkedin),
-                contentDescription = "linkedin"
-            )
-            Image(
-                painter = painterResource(R.drawable.ic_twitter),
-                contentDescription = "linkedin"
-            )
-            Image(
-                painter = painterResource(R.drawable.ic_instagram),
-                contentDescription = "linkedin"
-            )
+            if (video != null) {
+                if (video.data.video.platforms.linkedin) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_linkedin),
+                        contentDescription = "linkedin"
+                    )
+                }
+                if (video.data.video.platforms.twitter) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_twitter),
+                        contentDescription = "linkedin"
+                    )
+                }
+                if (video.data.video.platforms.instagram) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_instagram),
+                        contentDescription = "linkedin"
+                    )
+                }
+            }
 
         }
         Card(
@@ -156,19 +217,24 @@ fun VideoContent(paddingValues: PaddingValues) {
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text(
-                    text = "Title",
-                    color = BodyTextColor,
-                    fontFamily = FontFamily.SansSerif,
-                    fontWeight = FontWeight(590)
-                )
-                Text(
-                    text = "hashtag",
-                    color = BodyTextColor,
-                    fontFamily = FontFamily.SansSerif,
-                    fontWeight = FontWeight(400),
-                    modifier = Modifier.padding(top = 10.dp)
-                )
+                if (video != null) {
+                    Text(
+                        text = video.data.video.title,
+                        color = BodyTextColor,
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight(590)
+                    )
+                }
+                if (video != null) {
+                    Text(
+                        text = video.data.video.description,
+                        color = BodyTextColor,
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight(400),
+                        modifier = Modifier.padding(top = 10.dp),
+                        maxLines = 10
+                    )
+                }
             }
         }
 
