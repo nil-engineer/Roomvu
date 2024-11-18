@@ -3,7 +3,6 @@ package com.roomvu.roomvu.presentation.screens.videoContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,11 +28,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -54,17 +51,13 @@ import com.roomvu.roomvu.ui.theme.secondaryTextColor
 
 @Composable
 fun VideoContent(paddingValues: PaddingValues) {
-    val interactionSource = remember { MutableInteractionSource() }
     val mainViewModel: MainViewModel = hiltViewModel()
-//    mainViewModel.fetchVideo()
     val video = mainViewModel.video.observeAsState().value
-    val playerViewModel = PlayerViewModel()
+    val playerViewModel: PlayerViewModel = hiltViewModel()
     val player by playerViewModel.playerState.collectAsState()
-    val context = LocalContext.current
-
     if (video != null) {
         LaunchedEffect(video.data.video.videoUrl) {
-            playerViewModel.initializePlayer(context, video.data.video.videoUrl)
+            playerViewModel.initializePlayer(video.data.video.videoUrl)
         }
     }
 
