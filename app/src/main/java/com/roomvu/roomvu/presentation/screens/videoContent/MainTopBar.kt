@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,7 +35,7 @@ fun MainTopBar(navigateToEditScreen: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     var openAlertDialog by remember { mutableStateOf(false) }
     val mainViewModel: MainViewModel = hiltViewModel()
-    val dialogState = mainViewModel.openDialog.value
+    val dialogState = mainViewModel.openDialog.collectAsState().value
 
     val onDeleteClicked: () -> Unit = {
         mainViewModel.updateDialogState(true)
