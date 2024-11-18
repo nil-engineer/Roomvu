@@ -23,11 +23,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.roomvu.roomvu.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,14 +68,14 @@ fun MainTopBar(navigateToEditScreen: () -> Unit) {
                     contentDescription = "More",
                 )
                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    DropdownMenuItem(text = { Text("Edit") }, onClick = {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.edit_menu_name)) }, onClick = {
                         expanded = false
                         navigateToEditScreen()
                     })
-                    DropdownMenuItem(text = { Text("Connect more social media") }, onClick = {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.social_media_menu_name)) }, onClick = {
                         expanded = false
                     })
-                    DropdownMenuItem(text = { Text("Delete") }, onClick = {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.delete_menu_name)) }, onClick = {
                         expanded = false
                         onDeleteClicked()
                     })
@@ -94,7 +96,7 @@ fun DeleteConfirmAlert() {
             mainViewModel.updateDialogState(false)
         },
         title = {
-            Text(text = "Delete post",
+            Text(text = stringResource(R.string.delete_post_dialog_title),
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight(590),
                 textAlign = TextAlign.Center,
@@ -102,7 +104,8 @@ fun DeleteConfirmAlert() {
             )
         },
         text = {
-            Text("Are you sure you want to delete this post?",
+            Text(
+                stringResource(R.string.delete_dialog_text),
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight(400),
                 textAlign = TextAlign.Center,
@@ -115,7 +118,8 @@ fun DeleteConfirmAlert() {
                     mainViewModel.updateDialogState(false)
 
                 }) {
-                Text("Delete",
+                Text(
+                    stringResource(R.string.delete_btn),
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
                     color = Color.Black)
@@ -128,7 +132,8 @@ fun DeleteConfirmAlert() {
                     mainViewModel.updateDialogState(false)
 
                 }) {
-                Text("Cancel",
+                Text(
+                    stringResource(R.string.cancel_btn),
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
                     color = Color.Black)

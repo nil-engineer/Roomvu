@@ -18,12 +18,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.roomvu.roomvu.R
 import com.roomvu.roomvu.ui.theme.BgGray
 import com.roomvu.roomvu.ui.theme.Blue
 import com.roomvu.roomvu.ui.theme.BodyTextColor
@@ -68,7 +70,7 @@ fun EditVideoContent(paddingValues: PaddingValues){
             ),
             label = {
                 Text(
-                    "EDIT TITLE OF YOUR VIDEO POST",
+                    stringResource(R.string.edit_title_label),
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
                     color = Gray
@@ -76,7 +78,7 @@ fun EditVideoContent(paddingValues: PaddingValues){
             },
             placeholder = {
                 Text(
-                    text = "title",
+                    text = stringResource(R.string.title_placeholder),
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(590)
                 )
@@ -108,7 +110,7 @@ fun EditVideoContent(paddingValues: PaddingValues){
             ),
             label = {
                 Text(
-                    "EDIT CONTENT OF YOUR VIDEO POST",
+                    stringResource(R.string.edit_content_label),
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
                     color = Gray
@@ -116,7 +118,7 @@ fun EditVideoContent(paddingValues: PaddingValues){
             },
             placeholder = {
                 Text(
-                    text = "title",
+                    text = stringResource(R.string.edit_content_placeholder),
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(590)
                 )

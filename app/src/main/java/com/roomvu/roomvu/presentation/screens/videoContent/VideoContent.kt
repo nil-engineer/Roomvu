@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -165,7 +166,7 @@ fun VideoContent(paddingValues: PaddingValues) {
                             modifier = Modifier.padding(end = 8.dp)
                         )
                         Text(
-                            text = "A.I. Picked",
+                            text = stringResource(R.string.a_i_picked_btn),
                             fontFamily = FontFamily.SansSerif,
                             fontWeight = FontWeight(590),
                             textAlign = TextAlign.Center,
@@ -179,7 +180,7 @@ fun VideoContent(paddingValues: PaddingValues) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        "This video will be posted on",
+                        stringResource(R.string.post_on_social_txt),
                         color = BodyTextColor,
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight(590),
@@ -264,7 +265,7 @@ fun VideoContent(paddingValues: PaddingValues) {
                         modifier = Modifier.padding(end = 15.dp)
                     )
                     Text(
-                        text = "Record personal intro",
+                        text = stringResource(R.string.record_video_btn),
                         color = secondaryTextColor,
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight(600)

@@ -15,12 +15,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.roomvu.roomvu.R
 import com.roomvu.roomvu.ui.theme.Blue
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,7 +61,7 @@ fun EditTopBar(
 //                    modifier = Modifier.weight(1f)
 //                )
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel_btn_txt),
                     color = Blue,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
@@ -69,7 +71,7 @@ fun EditTopBar(
                     textAlign = TextAlign.Start
                 )
                 Text(
-                    text = "Edit",
+                    text = stringResource(R.string.edit_page_title),
                     color = Color.Black,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(590),
@@ -81,7 +83,7 @@ fun EditTopBar(
                 )
 
                 Text(
-                    text = "Save",
+                    text = stringResource(R.string.save_btn),
                     color = Blue,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
