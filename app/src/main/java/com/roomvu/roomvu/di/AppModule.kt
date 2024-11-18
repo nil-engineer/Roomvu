@@ -3,7 +3,7 @@ package com.roomvu.roomvu.di
 import com.roomvu.roomvu.data.remote.ChallengeApi
 import com.roomvu.roomvu.util.Constants.BASE_URL
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+//import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,20 +19,20 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    @Singleton
-    fun provideMoshi(): Moshi =
-        Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+//    @Provides
+//    @Singleton
+//    fun provideMoshi(): Moshi =
+//        Moshi.Builder()
+//            .add(KotlinJsonAdapterFactory())
+//            .build()
 
     @Provides
     @Singleton
-    fun provideChallengeApi(moshi: Moshi, client: OkHttpClient): ChallengeApi {
+    fun provideChallengeApi(client: OkHttpClient): ChallengeApi {
         return Retrofit.Builder()
             .client(client)
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create()
     }
