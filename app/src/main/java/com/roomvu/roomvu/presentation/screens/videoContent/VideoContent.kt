@@ -85,7 +85,7 @@ fun VideoContent(paddingValues: PaddingValues) {
 
             ) {
             Text(
-                text = "Jan 21",
+                text = mainViewModel.getDatePart(),
                 color = BodyTextColor,
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight(590),

@@ -31,6 +31,8 @@ class MainViewModel @Inject constructor(
     private val _video = MutableLiveData<VideoResponse>()
     var video: LiveData<VideoResponse> = _video
     private var time = ""
+    private var date = ""
+
     private var network by mutableStateOf(ConnectivityObserver.Status.Available)
 
     init {
@@ -62,11 +64,17 @@ class MainViewModel @Inject constructor(
 
     fun getTimePart(): String {
         viewModelScope.launch {
-//            if(video != null) {
             time = video.value?.data?.video?.publishAt?.split(" ")?.get(1) ?: ""
-//            }
+
         }
         return time
     }
 
+    fun getDatePart(): String {
+        viewModelScope.launch {
+            date = video.value?.data?.video?.publishAt?.split(" ")?.get(0) ?: ""
+
+        }
+        return date
+    }
 }
