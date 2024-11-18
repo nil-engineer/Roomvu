@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.roomvu.roomvu.connectivity.ConnectivityObserver
 import com.roomvu.roomvu.connectivity.NetworkConnectivityObserver
-import com.roomvu.roomvu.domain.entities.networkEntities.VideoEntity
+import com.roomvu.roomvu.domain.entities.networkEntities.VideoResponse
 import com.roomvu.roomvu.domain.usecases.GetVideoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,8 +28,8 @@ class MainViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(true)
     val isLoading = _isLoading.asStateFlow()
 
-    private val _video = MutableLiveData<VideoEntity>()
-    var video: LiveData<VideoEntity> = _video
+    private val _video = MutableLiveData<VideoResponse>()
+    var video: LiveData<VideoResponse> = _video
     private var time = ""
     private var network by mutableStateOf(ConnectivityObserver.Status.Available)
 

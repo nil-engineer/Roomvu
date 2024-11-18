@@ -1,8 +1,7 @@
 package com.roomvu.roomvu.domain.repo
 
-import com.roomvu.roomvu.domain.entities.networkEntities.VideoEntity
-import com.roomvu.roomvu.util.Resource
+import com.roomvu.roomvu.domain.entities.networkEntities.VideoResponse
 
 interface VideoRepository {
-    suspend fun getVideo(): VideoEntity
+    suspend fun getVideo(): VideoResponse
 }
