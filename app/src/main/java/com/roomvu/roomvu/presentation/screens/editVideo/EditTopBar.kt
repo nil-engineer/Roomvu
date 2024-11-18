@@ -1,14 +1,9 @@
 package com.roomvu.roomvu.presentation.screens.editVideo
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -25,13 +20,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.roomvu.roomvu.ui.theme.Blue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditTopBar() {
+fun EditTopBar(
+//    videoState: VideoState,
+    onCancelClicked: () -> Unit,
+    onSaveClicked: (/*String, String*/) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
-
+    val updateViewModel: EditVideoViewModel = hiltViewModel()
+//    val onSaveClick: () -> Unit = {
+////        Log.d("topbar", "EditTopBar: " + videoState.title!! + videoState.description!!)
+////        onSaveClicked(
+////            videoState.title, videoState.description
+////        )
+////        updateViewModel.updateVideo()
+//        onSaveClicked()
+//    }
     TopAppBar(
         title = {
             Row(
@@ -55,7 +63,9 @@ fun EditTopBar() {
                     color = Blue,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable(onClick = onCancelClicked),
                     textAlign = TextAlign.Start
                 )
                 Text(
@@ -75,7 +85,9 @@ fun EditTopBar() {
                     color = Blue,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight(400),
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable(onClick = onSaveClicked),
                     textAlign = TextAlign.End
                 )
             }
@@ -105,5 +117,5 @@ fun EditTopBar() {
 @Preview
 @Composable
 fun TopBarPreview() {
-    EditTopBar()
+//    EditTopBar()
 }
