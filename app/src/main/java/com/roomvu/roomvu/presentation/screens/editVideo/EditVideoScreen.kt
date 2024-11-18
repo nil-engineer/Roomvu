@@ -8,14 +8,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.roomvu.roomvu.domain.entities.VideoState
 
 @Composable
-fun EditVideoScreen() {
+fun EditVideoScreen(
+//    videoState: VideoState,
+    onCancelClicked: () -> Unit,
+    onSaveClicked: (/*String, String*/) -> Unit
+) {
 
     var padding by remember { mutableStateOf(PaddingValues()) }
 
     Scaffold(
-        topBar = { EditTopBar() },
+        topBar = { EditTopBar(/*videoState, */onCancelClicked, onSaveClicked) },
         content = {
             padding = it
             EditVideoContent(padding)
@@ -25,7 +30,7 @@ fun EditVideoScreen() {
 
 @Preview
 @Composable
-fun PreviewEdit(){
-    EditVideoScreen()
+fun PreviewEdit() {
+//    EditVideoScreen()
 }
 
