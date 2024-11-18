@@ -30,7 +30,7 @@ class PlayerViewModel @Inject constructor(val player: ExoPlayer) : ViewModel() {
                 val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
                 player.setMediaItem(mediaItem)
                 player.prepare()
-                player.playWhenReady = true
+//                player.playWhenReady = true
                 player.seekTo(currentPosition)
                 player.addListener(object : Player.Listener {
                     override fun onPlayerError(error: PlaybackException) {
