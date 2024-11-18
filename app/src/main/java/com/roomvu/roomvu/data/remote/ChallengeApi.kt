@@ -1,6 +1,7 @@
 package com.roomvu.roomvu.data.remote
 
 import com.roomvu.roomvu.domain.entities.networkEntities.VideoEntity
+import com.roomvu.roomvu.domain.entities.networkEntities.UpdateVideoResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -15,5 +16,5 @@ interface ChallengeApi {
     suspend fun updateVideo(
         @Field("title") title: String,
         @Field("description") description: String
-    )
+    ): UpdateVideoResponse
 }
