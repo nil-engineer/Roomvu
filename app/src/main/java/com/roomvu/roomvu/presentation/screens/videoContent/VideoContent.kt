@@ -76,8 +76,8 @@ fun VideoContent(paddingValues: PaddingValues) {
     Box(modifier = Modifier.fillMaxSize()) {
 //        Log.d("loading", "VideoContent: load" + (mainViewModel.isLoading.collectAsState().value))
         if (mainViewModel.isLoading.collectAsState().value) {
-            CircularProgressIndicator(color = Blue)
-        } else {
+            CircularProgressIndicator(color = Blue, modifier = Modifier.align(Alignment.Center))
+        }
 
             Column(
                 modifier = Modifier
@@ -272,6 +272,6 @@ fun VideoContent(paddingValues: PaddingValues) {
 
                 }
             }
-        }
+
     }
 }
