@@ -1,27 +1,22 @@
 package com.roomvu.roomvu.presentation.screens.videoContent
 
-import android.content.Context
 import android.net.Uri
 import androidx.annotation.OptIn
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.media3.common.MimeTypes
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.DataSource
-import androidx.media3.datasource.DefaultHttpDataSource
-import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.MediaSource
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
-import kotlinx.coroutines.delay
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PlayerViewModel : ViewModel() {
+@HiltViewModel
+class PlayerViewModel @Inject constructor(val player: ExoPlayer) : ViewModel() {
 
     private val _playerState = MutableStateFlow<ExoPlayer?>(null)
     val playerState: StateFlow<ExoPlayer?> = _playerState
@@ -29,43 +24,21 @@ class PlayerViewModel : ViewModel() {
     private var currentPosition: Long = 0L
 
     @OptIn(UnstableApi::class)
-    fun initializePlayer(context: Context, videoUrl: String) {
+    fun initializePlayer(videoUrl: String) {
         if (_playerState.value == null) {
             viewModelScope.launch {
-                val dataSourceFactory: DataSource.Factory = DefaultHttpDataSource.Factory()
+                val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
+                player.setMediaItem(mediaItem)
+                player.prepare()
+                player.playWhenReady = true
+                player.seekTo(currentPosition)
+                player.addListener(object : Player.Listener {
+                    override fun onPlayerError(error: PlaybackException) {
+                        handleError(error)
+                    }
+                })
 
-                val exoPlayer = ExoPlayer.Builder(context).setRenderersFactory(
-                    DefaultRenderersFactory(context).setEnableDecoderFallback(true)
-                ).build()
-                val mediaItem = MediaItem.Builder()
-                    .setUri(Uri.parse(videoUrl))
-                    .setMimeType(MimeTypes.APPLICATION_MP4)
-                    .build()
-                val mediaSource: MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(mediaItem)
-//                exoPlayer.setMediaItem(mediaItem)
-                exoPlayer.setMediaSource(mediaSource)
-                exoPlayer.prepare()
-                exoPlayer.play()
-
-//                    val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
-//                    val mediaItem = MediaItem.Builder().setUri((Uri.parse(videoUrl)).setMimeType()
-//                    val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
-//                    val mediaSource = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
-//                        .createMediaSource(mediaItem).
-//                    it.setMediaSource(mediaSource)
-//                    it.setMediaItem(mediaItem)
-//                    it.prepare()
-//                    it.playWhenReady = true
-//                    it.seekTo(currentPosition)
-//                    it.addListener(object : Player.Listener {
-//                        override fun onPlayerError(error: PlaybackException) {
-//                            handleError(error)
-//                        }
-//                    })
-//                    delay(5000)
-
-                _playerState.value = exoPlayer
+                _playerState.value = player
             }
         }
     }
