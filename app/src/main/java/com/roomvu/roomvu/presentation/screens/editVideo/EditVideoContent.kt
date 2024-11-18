@@ -18,12 +18,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.roomvu.roomvu.R
 import com.roomvu.roomvu.ui.theme.BgGray
@@ -44,7 +46,7 @@ fun EditVideoContent(paddingValues: PaddingValues){
             .background(BgGray)
             .navigationBarsPadding()
             .padding(top = paddingValues.calculateTopPadding())
-            .padding(15.dp)
+            .padding(dimensionResource(id = R.dimen.content_padding).value.dp)
     ) {
 
         OutlinedTextField(
@@ -54,9 +56,9 @@ fun EditVideoContent(paddingValues: PaddingValues){
             textStyle = TextStyle(
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight(590),
-                color = BodyTextColor
-
-            ),
+                color = BodyTextColor,
+                fontSize = dimensionResource(id = R.dimen.main_txt_size).value.sp,
+                ),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Blue,
                 unfocusedLabelColor = Gray,
@@ -94,9 +96,10 @@ fun EditVideoContent(paddingValues: PaddingValues){
             textStyle = TextStyle(
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight(400),
-                color = BodyTextColor
+                color = BodyTextColor,
+                fontSize = dimensionResource(id = R.dimen.main_txt_size).value.sp,
 
-            ),
+                ),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Blue,
                 unfocusedLabelColor = Gray,

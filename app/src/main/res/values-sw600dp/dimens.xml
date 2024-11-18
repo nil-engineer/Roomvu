@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_txt_size">24sp</dimen>
+    <dimen name="secondary_txt_size">22sp</dimen>
+    <dimen name="other_txt_size">20sp</dimen>
+    <dimen name="content_padding">25dp</dimen>
+    <dimen name="title_horizontal_padding">10.dp</dimen>
+    <dimen name="title_vertical_padding">10.dp</dimen>
+    <dimen name="player_height">400.dp</dimen>
+    <dimen name="card_area_horizontal_padding">30.dp</dimen>
+    <dimen name="card_area_vertical_padding">20.dp</dimen>
+    <dimen name="record_btn_horizontal_padding">15.dp</dimen>
+    <dimen name="record_btn_vertical_padding">11.dp</dimen>
+    <dimen name="ai_btn_horizontal_padding">10.dp</dimen>
+    <dimen name="ai_btn_vertical_padding">6.dp</dimen>
+</resources>
