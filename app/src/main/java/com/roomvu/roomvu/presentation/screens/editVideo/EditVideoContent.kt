@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.roomvu.roomvu.ui.theme.BgGray
 import com.roomvu.roomvu.ui.theme.Blue
 import com.roomvu.roomvu.ui.theme.BodyTextColor
@@ -30,9 +31,11 @@ import com.roomvu.roomvu.ui.theme.Gray
 
 @Composable
 fun EditVideoContent(paddingValues: PaddingValues){
-    var title by remember { mutableStateOf("Title") }
-    var content by remember { mutableStateOf("#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag#hashtag\n\n") }
+    var title by remember { mutableStateOf("") }
+    var content by remember { mutableStateOf("") }
 
+    val updateViewModel: EditVideoViewModel = hiltViewModel()
+    updateViewModel.saveArguments(title, content)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -128,5 +131,5 @@ fun EditVideoContent(paddingValues: PaddingValues){
 @Preview
 @Composable
 fun PreviewEditContent(){
-    EditVideoScreen()
+//    EditVideoScreen()
 }
