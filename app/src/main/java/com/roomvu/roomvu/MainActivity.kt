@@ -12,6 +12,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.roomvu.roomvu.navigation.Screen
+import com.roomvu.roomvu.navigation.SetupNavGraph
 import com.roomvu.roomvu.presentation.screens.videoContent.MainTopBar
 import com.roomvu.roomvu.presentation.screens.videoContent.VideoContent
 import com.roomvu.roomvu.ui.theme.RoomvuTheme
@@ -24,7 +27,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RoomvuTheme {
-                VideoScreen()
+                val navController = rememberNavController()
+                SetupNavGraph(
+                    startDestination = Screen.Main.route,
+                    navController = navController,
+                )
+//                VideoScreen()
             }
         }
     }
@@ -32,11 +40,11 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun VideoScreen() {
+fun VideoScreen(navigateToEditScreen: () -> Unit) {
     var padding by remember { mutableStateOf(PaddingValues()) }
 
     Scaffold(
-        topBar = { MainTopBar() },
+        topBar = { MainTopBar(navigateToEditScreen) },
         content = {
             padding = it
             VideoContent(padding)
@@ -48,5 +56,5 @@ fun VideoScreen() {
 @Preview(showBackground = true)
 @Composable
 fun VideoPreview() {
-    VideoScreen()
+//    VideoScreen()
 }
