@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.roomvu.roomvu.R
 import com.roomvu.roomvu.presentation.screens.components.VideoPlayer
 import com.roomvu.roomvu.ui.theme.BgGray
@@ -67,12 +69,7 @@ fun VideoContent(paddingValues: PaddingValues) {
             playerViewModel.releasePlayer()
         }
     }
-//    var publishDate = ""
-//    if (video != null) {
-//        publishDate = video.data.video.publishAt
-//    }
-//    val time = publishDate.split(" ")
-//    Log.d("time", "VideoContent: time" + time.size)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -87,13 +84,13 @@ fun VideoContent(paddingValues: PaddingValues) {
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight(590)
         )
-        Box(contentAlignment = Alignment.Center) {
+//        Box(contentAlignment = Alignment.Center) {
 //        if (video != null) {
 //            AsyncImage(
-//                modifier = Modifier.size(30.dp),
+//                modifier = Modifier.fillMaxWidth(),
 //                model = video.data.video.thumbnail,
 //                contentDescription = "thumb",
-//                contentScale = ContentScale.FillWidth
+//                contentScale = ContentScale.Fit
 //            )
 //        }
 //        Button(onClick = {},
@@ -103,11 +100,14 @@ fun VideoContent(paddingValues: PaddingValues) {
 //                contentDescription = "play")
 //        }
         VideoPlayer(player)
-    }
+//    }
+
+
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
+                .padding(top = 10.dp)
         ) {
             Image(
                 painter = painterResource(R.drawable.ic_video),

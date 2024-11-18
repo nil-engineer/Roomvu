@@ -75,7 +75,7 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.converter.moshi)
     implementation(libs.androidx.runtime.livedata)
-    implementation(libs.exoplayer)
+//    implementation(libs.exoplayer)
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
     implementation(libs.coil.compose)
