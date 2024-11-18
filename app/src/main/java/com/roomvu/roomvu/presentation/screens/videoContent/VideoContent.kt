@@ -87,7 +87,7 @@ fun VideoContent(paddingValues: PaddingValues) {
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight(590)
         )
-        Box(contentAlignment = Alignment.Center) {
+//        Box(contentAlignment = Alignment.Center) {
 //        if (video != null) {
 //            AsyncImage(
 //                modifier = Modifier.size(30.dp),
@@ -103,7 +103,7 @@ fun VideoContent(paddingValues: PaddingValues) {
 //                contentDescription = "play")
 //        }
         VideoPlayer(player)
-    }
+//    }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
