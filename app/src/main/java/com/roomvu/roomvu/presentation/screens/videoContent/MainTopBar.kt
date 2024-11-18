@@ -30,7 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainTopBar() {
+fun MainTopBar(navigateToEditScreen: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     var openAlertDialog by remember { mutableStateOf(false) }
     val mainViewModel: MainViewModel = hiltViewModel()
@@ -67,6 +67,7 @@ fun MainTopBar() {
                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                     DropdownMenuItem(text = { Text("Edit") }, onClick = {
                         expanded = false
+                        navigateToEditScreen()
                     })
                     DropdownMenuItem(text = { Text("Connect more social media") }, onClick = {
                         expanded = false
